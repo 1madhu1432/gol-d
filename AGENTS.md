@@ -1,10 +1,7 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+# AVP Gold — Enterprise Precious Metal ERP
+
+## Architecture & Development Guidelines
+- **Technology Stack:** Vite, React 19, TypeScript, TanStack Router & TanStack Start, TailwindCSS.
+- **Enterprise Modules:** Operations (Counter Gold/Silver Purchases, Bank-Pledged Redemptions, Lab Assaying & Testing), Commercial (Valuation, Rates, Charges & Commission, Settlements, Payouts), Custody (Vaults, Packets, Branch Transfers), Finance (Accounting, Reconciliation, Margin), Administration (Branches, Employees, Roles, Audit Logs).
+- **Branch Context:** Strict branch data isolation for Branch Managers, multi-branch oversight for Super Admin and HQ Finance.
+- **Strict Terminology:** Bank-pledged metal is NOT an auction. Use: Bank Outstanding, Bank Payment, Bank Release, Customer Settlement.
