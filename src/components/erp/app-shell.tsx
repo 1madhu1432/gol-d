@@ -1,11 +1,12 @@
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, useEffect, type ReactNode } from "react";
 import {
   Bell,
   Building2,
   CalendarDays,
   ChevronDown,
   CircleHelp,
+  Download,
   Gem,
   Menu,
   PanelLeftClose,
@@ -136,6 +137,38 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [mobile, setMobile] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [installPrompt, setInstallPrompt] = useState<any>(null);
+  const [isStandalone, setIsStandalone] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    if (window.matchMedia("(display-mode: standalone)").matches || (window.navigator as any).standalone === true) {
+      setIsStandalone(true);
+    }
+
+    const handleBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+
+    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+  }, []);
+
+  const handleInstallApp = async () => {
+    if (!installPrompt) {
+      toast.info("PWA Ready", { description: "Use your browser address bar's install icon to pin AVP Gold to your desktop or mobile home screen." });
+      return;
+    }
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === "accepted") {
+      toast.success("AVP Gold ERP installed to your device!");
+      setInstallPrompt(null);
+      setIsStandalone(true);
+    }
+  };
 
   const {
     currentUser,
@@ -439,6 +472,18 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="font-bold">22K Gold:</span> ₹6,850/g
               <span className="font-bold ml-1">999 Silver:</span> ₹94.5/g
             </div>
+
+            {/* Install PWA Button */}
+            {!isStandalone && (
+              <button
+                onClick={handleInstallApp}
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-md border border-amber-300/80 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-900 hover:bg-amber-100 transition-colors shadow-2xs"
+                title="Install AVP Gold ERP application to your device"
+              >
+                <Download className="size-3.5 text-amber-700" />
+                <span>Install App</span>
+              </button>
+            )}
 
             {/* Help */}
             <Link to="/settings" className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors" title="System Settings & Help">

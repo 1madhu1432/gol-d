@@ -83,6 +83,10 @@ function SettingsPage() {
             <ShieldCheck className="size-4" />
             Security & Audit Controls
           </TabsTrigger>
+          <TabsTrigger value="pwa" className="gap-2">
+            <Smartphone className="size-4" />
+            PWA & Offline Readiness
+          </TabsTrigger>
         </TabsList>
 
         {/* TAB 1: COMPANY PROFILE */}
@@ -336,6 +340,86 @@ function SettingsPage() {
                   All rate modifications, approval events, custody transfers, and settlement payouts are cryptographically signed and logged with operator ID, IP address, and timestamp.
                 </p>
               </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        {/* TAB 5: PWA & OFFLINE READINESS */}
+        <TabsContent value="pwa" className="space-y-4">
+          <div className="rounded-lg border border-border bg-card p-5 shadow-xs space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
+              <div>
+                <h3 className="font-semibold text-sm text-foreground">
+                  Progressive Web App (PWA) & Offline Shell
+                </h3>
+                <p className="text-muted-foreground text-[11px] mt-0.5">
+                  Run AVP Gold ERP as an installed standalone native application on Windows, macOS, Android, and iOS.
+                </p>
+              </div>
+              <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 text-xs font-bold">
+                PWA Enabled
+              </span>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 text-xs">
+              <div className="rounded-md border border-border p-3.5 bg-muted/30 space-y-2">
+                <div className="flex items-center gap-2 font-semibold text-foreground">
+                  <Smartphone className="size-4 text-primary" />
+                  <span>Installation Manifest</span>
+                </div>
+                <p className="text-muted-foreground text-[11px]">
+                  Web App Manifest configured at <code className="font-mono bg-muted px-1 py-0.2 rounded">/manifest.json</code> with high-res 192px and 512px icons, maskable icons, and quick shortcuts for Valuation, Pledged Gold, and Vault.
+                </p>
+                <div className="pt-1 flex items-center gap-2 text-[11px] text-emerald-700 font-semibold">
+                  <CheckCircle2 className="size-3.5" /> Standalone Display Mode Active
+                </div>
+              </div>
+
+              <div className="rounded-md border border-border p-3.5 bg-muted/30 space-y-2">
+                <div className="flex items-center gap-2 font-semibold text-foreground">
+                  <ShieldCheck className="size-4 text-emerald-600" />
+                  <span>Service Worker Caching</span>
+                </div>
+                <p className="text-muted-foreground text-[11px]">
+                  Cache-first strategy for static assets and network-first for navigation. Critical shell routes and rate indices are cached for instant desk loading.
+                </p>
+                <div className="pt-1 flex items-center gap-2 text-[11px] text-emerald-700 font-semibold">
+                  <CheckCircle2 className="size-3.5" /> Cache Name: avp-gold-erp-v1
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-md border border-amber-200/80 bg-amber-50/60 p-4 text-xs text-amber-950 space-y-2">
+              <h4 className="font-semibold flex items-center gap-2">
+                <span>Desktop & Mobile App Installation Instructions</span>
+              </h4>
+              <ul className="list-disc pl-4 space-y-1 text-[11px] text-amber-900">
+                <li><strong>Chrome / Edge (Desktop):</strong> Click the <strong>"Install App"</strong> button in the top navigation bar or the install icon in the address bar to add to your desktop/taskbar.</li>
+                <li><strong>Android (Chrome):</strong> Tap the three-dot menu and select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+                <li><strong>iOS (Safari):</strong> Tap the Share button at the bottom and select <strong>"Add to Home Screen"</strong>.</li>
+              </ul>
+            </div>
+
+            <div className="pt-2 flex items-center justify-between border-t border-border">
+              <span className="text-[11px] text-muted-foreground">
+                Need to force reload all cached assets across all branch desks?
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  if (typeof window !== "undefined" && "caches" in window) {
+                    caches.keys().then((names) => {
+                      for (let name of names) caches.delete(name);
+                    });
+                  }
+                  toast.success("Service Worker cache cleared. Application refreshed.");
+                  setTimeout(() => window.location.reload(), 600);
+                }}
+                className="text-xs"
+              >
+                Clear PWA Cache & Reload
+              </Button>
             </div>
           </div>
         </TabsContent>

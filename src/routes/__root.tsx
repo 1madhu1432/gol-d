@@ -79,10 +79,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" },
       { title: "AVP Gold — Enterprise Precious Metal ERP" },
       { name: "description", content: "AVP Gold Enterprise ERP for Old Metal Purchase and Bank Pledged Metal Settlement & Release Operations" },
       { name: "author", content: "AVP Gold Operations" },
+      { name: "theme-color", content: "#b45309" },
+      { name: "color-scheme", content: "light dark" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "apple-mobile-web-app-title", content: "AVP Gold" },
+      { name: "application-name", content: "AVP Gold ERP" },
+      { name: "mobile-web-app-capable", content: "yes" },
       { property: "og:title", content: "AVP Gold — Enterprise Precious Metal ERP" },
       { property: "og:description", content: "AVP Gold Enterprise ERP for Old Metal Purchase and Bank Pledged Metal Settlement & Release Operations" },
       { property: "og:type", content: "website" },
@@ -94,6 +101,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/manifest.json" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "icon", href: "/icon-192.png", type: "image/png" },
     ],
   }),
   shellComponent: RootShell,
@@ -118,6 +128,21 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((reg) => {
+            console.log("[AVP Gold PWA] Service worker registered with scope:", reg.scope);
+          })
+          .catch((err) => {
+            console.warn("[AVP Gold PWA] Service worker registration error:", err);
+          });
+      });
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
