@@ -1,0 +1,192 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 3px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 3px);
+  --radius-2xl: calc(var(--radius) + 6px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-table-head: var(--table-head);
+  --color-success: var(--success);
+  --color-success-muted: var(--success-muted);
+  --color-warning: var(--warning);
+  --color-warning-muted: var(--warning-muted);
+  --color-warning-strong: var(--warning-strong);
+  --color-destructive-muted: var(--destructive-muted);
+}
+
+:root {
+  /* 7px standard radius */
+  --radius: 0.44rem;
+
+  /* Ivory / Warm neutral page background */
+  --background: #fbf9f4;
+  --foreground: #1c1d21;
+
+  /* Crisp white cards */
+  --card: #ffffff;
+  --card-foreground: #1c1d21;
+
+  --popover: #ffffff;
+  --popover-foreground: #1c1d21;
+
+  /* Restrained rich gold / deep brass */
+  --primary: #947116;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f4efe4;
+  --secondary-foreground: #2d281a;
+
+  --muted: #f4f1ea;
+  --muted-foreground: #66635c;
+
+  --accent: #f5f0e3;
+  --accent-foreground: #1c1d21;
+
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --destructive-muted: #fee2e2;
+
+  --success: #15803d;
+  --success-muted: #dcfce7;
+
+  --warning: #b45309;
+  --warning-muted: #fef3c7;
+  --warning-strong: #92400e;
+
+  /* Very subtle borders */
+  --border: #e9e4d8;
+  --input: #e4dfd2;
+  --ring: #947116;
+
+  --table-head: #f7f4ed;
+
+  --chart-1: #947116;
+  --chart-2: #475569;
+  --chart-3: #2563eb;
+  --chart-4: #059669;
+  --chart-5: #d97706;
+
+  /* Sidebar styling */
+  --sidebar: #f7f4ec;
+  --sidebar-foreground: #1c1d21;
+  --sidebar-primary: #947116;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ece7db;
+  --sidebar-accent-foreground: #1c1d21;
+  --sidebar-border: #e5dfd1;
+  --sidebar-ring: #947116;
+}
+
+.dark {
+  --background: #151618;
+  --foreground: #f4f4f5;
+  --card: #1f2024;
+  --card-foreground: #f4f4f5;
+  --popover: #1f2024;
+  --popover-foreground: #f4f4f5;
+  --primary: #cba338;
+  --primary-foreground: #151618;
+  --secondary: #27282d;
+  --secondary-foreground: #f4f4f5;
+  --muted: #27282d;
+  --muted-foreground: #9ca3af;
+  --accent: #2e2f36;
+  --accent-foreground: #f4f4f5;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --destructive-muted: #451a1a;
+  --success: #22c55e;
+  --success-muted: #14532d;
+  --warning: #f59e0b;
+  --warning-muted: #451a03;
+  --warning-strong: #fbbf24;
+  --border: #2d2e35;
+  --input: #2d2e35;
+  --ring: #cba338;
+  --table-head: #222328;
+  --chart-1: #cba338;
+  --chart-2: #94a3b8;
+  --chart-3: #60a5fa;
+  --chart-4: #34d399;
+  --chart-5: #fbbf24;
+  --sidebar: #191a1d;
+  --sidebar-foreground: #f4f4f5;
+  --sidebar-primary: #cba338;
+  --sidebar-primary-foreground: #151618;
+  --sidebar-accent: #26272d;
+  --sidebar-accent-foreground: #f4f4f5;
+  --sidebar-border: #2a2b32;
+  --sidebar-ring: #cba338;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Print styling for certificates, vouchers, and settlement sheets */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  aside, header, nav, .no-print {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: auto !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+}
